@@ -125,13 +125,13 @@
 					<a href="javascript:;">전화 상담 신청</a>
 				</p>
 				<div class="bbs_line">
-					<h3>NOTICE</h3>
+				<h3><span id="notice">NOTICE</span> | <span id="program">PROGRAM</span></h3>
 					<ul class="notice_recent">
-						<li><a href="javascript:;">이번 여름 휴가 제주 갈까? 미션 투어 (여행경비 50만원 지원)</a></li>
-						<li><a href="javascript:;">박물관 미션 투어 응모 당첨자 발표</a></li>
-						<li><a href="javascript:;">추석 연휴 티켓/투어 배송 및 직접 수령 안내</a></li>
-						<li><a href="javascript:;">하롱베이 서비스 OPEN! (여행정보, 가이드북, 가이드맵)</a></li>
-						<li><a href="javascript:;">투어리스트인투어 서비스 점검 안내</a></li>
+<!-- 						<li><a href="javascript:;">이번 여름 휴가 제주 갈까? 미션 투어 (여행경비 50만원 지원)</a></li> -->
+<!-- 						<li><a href="javascript:;">박물관 미션 투어 응모 당첨자 발표</a></li> -->
+<!-- 						<li><a href="javascript:;">추석 연휴 티켓/투어 배송 및 직접 수령 안내</a></li> -->
+<!-- 						<li><a href="javascript:;">하롱베이 서비스 OPEN! (여행정보, 가이드북, 가이드맵)</a></li> -->
+<!-- 						<li><a href="javascript:;">투어리스트인투어 서비스 점검 안내</a></li> -->
 					</ul>
 				</div>
 			</div>
@@ -147,6 +147,42 @@
 <!-- //wrap -->
 
 <jsp:include page="../inc/popup.jsp"/>
+
+<script type="text/javascript">
+$(function(){
+	// id="notice" 클릭했을때 
+	$('#notice').click(function(){
+// 		alert("notice 클릭");
+	$.ajax({
+		url:"${pageContext.request.contextPath}/board/listjson",
+		dataType:"json",
+		success:function(result){
+// 			alert(result);
+			//index 순서
+			//item 키:값 변수
+			$.each(result,function(index, item){
+// 				alert(index);
+// 				alert(item);
+// 				alert(item.subject);
+				$('.notice_recent').append('<li><a href="javascript:;">'+item.subject +'</a></li>');
+				//append 내용을 뒤부분에 추가
+				//html 아이디 중복체크할때 덮어써야할때
+			}); //반복문
+		}
+		
+		
+		
+	});
+	
+	
+	
+	
+	});
+	
+});
+
+
+</script>
 
 </div>
 

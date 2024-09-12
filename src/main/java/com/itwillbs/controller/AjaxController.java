@@ -19,6 +19,7 @@ public class AjaxController {
 	
 	@Inject
 	private MemberService memberService;
+	@Inject
 	private BoardService boardService;
 	
 	//id 중복체크
