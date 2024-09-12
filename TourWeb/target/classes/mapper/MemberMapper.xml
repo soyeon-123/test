@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mapper.MemberMapper">
+
+<!-- values(?,?,?,?) ? 대신 => MemberDTO의 멤버변수  이름 #{id} -->
+
+	<insert id="insertMember">
+		insert into members3(id,pass,name,phone,email,gender,agree,content,date)
+		values(#{id},#{pass},#{name},#{phone},#{email},#{gender},#{agree},#{content},#{date})
+	</insert>
+	
+	<select id="userCheck" resultType="com.itwillbs.domain.MemberDTO">
+		select * from members3
+		where id = #{id} and pass = #{pass}
+	</select>
+	
+	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
+		select * from members3
+		where id = #{id}
+	</select>
+	
+	<update id="updateMember">
+		update members3 
+		set name = #{name}, phone = #{phone}, email = #{email}, gender = #{gender}, agree = #{agree}
+		where id = #{id}
+	</update>
+	
+  
+</mapper>

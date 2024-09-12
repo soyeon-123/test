@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mapper.BoardMapper">
+
+	<insert id="insertBoard">
+		insert into board(num,name,subject,content,readcount,date)
+		values(#{num},#{name},#{subject},#{content},#{readcount},#{date})
+	</insert>
+	
+	<select id="getMaxNum" resultType="java.lang.Integer">
+		select max(num) from board
+	</select>
+	
+<!-- limit ?,? => limit 시작하는 행번호 - 1, 글개수 
+	동적 쿼리 이용 => 검색어 있으면 sql구문 추가 
+	https://mybatis.org/mybatis-3
+	동전 쿼리 => Dynamic SQL/
+	Mysql 함수 CONCAT() 문자열 합치기 => CONCAT(%, 검색어, %) 
+	
+	mysql> select * from board
+    -> where subject like '%1%'
+    -> order by num desc
+    -> limit 0,10;
+	-->
+	<select id="getBoardList" resultType="com.itwillbs.domain.BoardDTO">
+		select * from board 
+<!-- 		검색어 있으면 -->
+		<if test="search != null">
+			where subject like CONCAT('%',#{search},'%')
+		</if>
+		order by num desc 
+		limit #{startRow},#{pageSize}
+	</select>
+	
+<!-- 	검색어 포함 -->
+	<select id="getBoardCount" resultType="java.lang.Integer">
+		select count(*) from board
+	<!-- 		검색어 있으면 -->
+		<if test="search != null">
+			where subject like CONCAT('%',#{search},'%')
+		</if>		
+	</select>
+	
+  
+</mapper>
